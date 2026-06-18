@@ -60,9 +60,9 @@ const SKILL_GROUPS = [
 
 const PROJECTS = [
   {
-    title: "AI Lumen — Knowledge Architecture",
+    title: "AI Lumen — Chatbot",
     description:
-      "Multi-tenant knowledge base synchronization system powered by Supabase and Botpress Cloud to streamline data retrieval and management across clients.",
+      "Multi-tenant conversational chatbot powered by Supabase and Botpress Cloud — context-aware answers, persistent memory, and per-client knowledge isolation.",
     stack: ["Supabase", "Botpress Cloud", "Multi-tenant"],
   },
   {
@@ -106,6 +106,90 @@ const PROJECTS = [
     description:
       "HR automation that auto-generates Trello onboarding tasks, sends personalized welcomes, and uses Zapier Paths to alert admins on missing data.",
     stack: ["Zapier", "Google Workspace", "Trello", "Slack"],
+  },
+  {
+    title: "RAG Document Q&A Engine",
+    description:
+      "Retrieval-augmented chatbot over private PDFs and Notion docs with hybrid vector search, citation-grounded answers, and per-user access scoping.",
+    stack: ["LangChain", "Supabase pgvector", "GPT-4o"],
+  },
+  {
+    title: "Autonomous Cold Outreach Agent",
+    description:
+      "End-to-end SDR pipeline that scrapes leads, enriches them, drafts personalized openers via LLM, and routes replies into a CRM for human handoff.",
+    stack: ["n8n", "Apollo", "GPT-4o", "GoHighLevel"],
+  },
+  {
+    title: "AI Meeting Summarizer & Action Tracker",
+    description:
+      "Auto-ingests call recordings, transcribes via Whisper, extracts decisions and owners, and pushes structured action items into Notion and Slack.",
+    stack: ["Whisper", "n8n", "Notion API", "Slack"],
+  },
+  {
+    title: "AI Resume Screening Pipeline",
+    description:
+      "Parses inbound CVs from Gmail, scores candidates against role rubrics with an LLM, and writes ranked shortlists to Airtable with explainability notes.",
+    stack: ["Zapier", "GPT-4o", "Airtable", "Gmail API"],
+  },
+  {
+    title: "E-commerce Inventory Sync Bot",
+    description:
+      "Bidirectional inventory sync between Shopify, a Supabase ledger, and Google Sheets — conflict resolution, low-stock alerts, and audit trail per SKU.",
+    stack: ["n8n", "Shopify API", "Supabase", "Slack"],
+  },
+  {
+    title: "Real-time Price Monitoring Agent",
+    description:
+      "Headless scraper monitoring competitor pricing on a schedule with anti-bot rotation, change detection, and Telegram alerts on threshold breaches.",
+    stack: ["Python", "Selenium", "PostgreSQL", "Telegram Bot API"],
+  },
+  {
+    title: "AI Customer Feedback Classifier",
+    description:
+      "Streams reviews and support tickets through an LLM classifier with sentiment, intent, and urgency tags surfaced on a live dashboard.",
+    stack: ["FastAPI", "LangChain", "Supabase", "Recharts"],
+  },
+  {
+    title: "Voice-to-CRM Logger",
+    description:
+      "Field-rep mobile flow that captures voice notes, transcribes and structures them via LLM, and writes the result straight into GoHighLevel contacts.",
+    stack: ["Vapi", "Whisper", "GoHighLevel", "n8n"],
+  },
+  {
+    title: "Instagram DM Auto-Responder",
+    description:
+      "LLM-backed DM agent that qualifies leads, answers FAQs, books calls via Calendly, and escalates complex threads to a human with full context.",
+    stack: ["Manychat", "n8n", "Azure OpenAI", "Calendly"],
+  },
+  {
+    title: "AI Blog Generation Pipeline",
+    description:
+      "Topic-to-publish pipeline: keyword research, outline, draft, on-page SEO checks, and WordPress publishing — all triggered from a single Airtable row.",
+    stack: ["n8n", "GPT-4o", "WordPress REST", "Airtable"],
+  },
+  {
+    title: "Internal Ops Copilot",
+    description:
+      "Slack-native AI copilot that answers HR, finance, and IT questions from internal docs with role-based access and a feedback loop into the knowledge base.",
+    stack: ["Slack Bolt", "LangChain", "Supabase pgvector", "Python"],
+  },
+  {
+    title: "Telegram Trading Signals Bot",
+    description:
+      "Event-driven bot ingesting market feeds, evaluating strategy rules, and broadcasting formatted signals with risk metadata to subscriber channels.",
+    stack: ["Python", "FastAPI", "Telegram Bot API", "PostgreSQL"],
+  },
+  {
+    title: "Multi-channel Appointment Booking AI",
+    description:
+      "Unified booking agent across WhatsApp, web chat, and voice — checks availability, books, reschedules, and sends reminders without human touch.",
+    stack: ["Vapi", "Botpress", "Google Calendar", "n8n"],
+  },
+  {
+    title: "Invoice OCR & Reconciliation Bot",
+    description:
+      "Drops a PDF invoice in a folder, OCR + LLM extracts line items, matches against POs in the ERP, and posts approved entries with mismatch flags.",
+    stack: ["Python", "GPT-4o Vision", "Supabase", "Zapier"],
   },
 ];
 
@@ -198,17 +282,17 @@ function Hero() {
           </div>
 
           <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            Backend engineer
+            AI & Automation
             <br />
-            building <span className="text-gradient-yellow">autonomous</span>
+            engineer shipping <span className="text-gradient-yellow">autonomous</span>
             <br />
-            AI systems.
+            systems.
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            I'm <span className="text-foreground font-medium">Mati Ur Rehman</span> — a Backend
-            Developer & AI Automation Engineer designing zero-touch pipelines with n8n, LangChain,
-            Azure OpenAI and Supabase that ship to production.
+            I'm <span className="text-foreground font-medium">Mati Ur Rehman</span> — an AI &
+            Automation Engineer designing zero-touch pipelines with n8n, LangChain, Azure OpenAI
+            and Supabase that ship to production.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -229,7 +313,7 @@ function Hero() {
           </div>
 
           <div className="mt-16 grid max-w-2xl grid-cols-3 gap-8 border-t border-border/60 pt-8">
-            <Stat value="8+" label="Production AI systems" />
+            <Stat value="20+" label="Production AI systems" />
             <Stat value="AZ-900" label="Microsoft Certified" />
             <Stat value="Zero-touch" label="Automation pipelines" />
           </div>
