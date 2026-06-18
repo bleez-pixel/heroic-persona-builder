@@ -18,6 +18,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+function openBotpressChat() {
+  const w = window as unknown as {
+    botpress?: { open?: () => void; toggle?: () => void };
+  };
+  if (w.botpress?.open) {
+    w.botpress.open();
+    return;
+  }
+  if (w.botpress?.toggle) {
+    w.botpress.toggle();
+    return;
+  }
+  const fab = document.querySelector<HTMLElement>(
+    ".bpFab, .bpw-floating-button, [class*='Fab']"
+  );
+  if (fab) fab.click();
+  else toast.message("Chat is loading — please try again in a moment.");
+}
+
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
