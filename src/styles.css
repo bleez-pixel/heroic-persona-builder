@@ -177,3 +177,18 @@
   }
   .animate-float-up { animation: float-up 0.7s ease-out both; }
 }
+
+/* Botpress webchat bubble — match site accent */
+.bpFab,
+[class*="bpFab"],
+.bpw-floating-button,
+[class*="FloatingButton"] {
+  background-color: #f5c518 !important;
+  color: #0a0a0a !important;
+  box-shadow: 0 10px 30px -10px rgba(245, 197, 24, 0.55) !important;
+}
+.bpFab svg,
+[class*="bpFab"] svg {
+  color: #0a0a0a !important;
+  fill: #0a0a0a !important;
+}
