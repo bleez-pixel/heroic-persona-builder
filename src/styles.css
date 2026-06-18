@@ -63,25 +63,30 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  /* Batman-inspired: deep blacks + sharp yellow accent */
+  --background: oklch(0.14 0.005 270);
+  --foreground: oklch(0.96 0.01 90);
+  --card: oklch(0.18 0.006 270);
+  --card-foreground: oklch(0.96 0.01 90);
+  --popover: oklch(0.18 0.006 270);
+  --popover-foreground: oklch(0.96 0.01 90);
+  --primary: oklch(0.86 0.18 95);
+  --primary-foreground: oklch(0.12 0.005 270);
+  --secondary: oklch(0.22 0.006 270);
+  --secondary-foreground: oklch(0.96 0.01 90);
+  --muted: oklch(0.22 0.006 270);
+  --muted-foreground: oklch(0.7 0.02 90);
+  --accent: oklch(0.86 0.18 95);
+  --accent-foreground: oklch(0.12 0.005 270);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.28 0.008 270);
+  --input: oklch(0.24 0.008 270);
+  --ring: oklch(0.86 0.18 95);
+  --gradient-bat: radial-gradient(circle at 50% 0%, oklch(0.22 0.01 90 / 0.4), transparent 60%);
+  --shadow-bat: 0 20px 60px -20px oklch(0.86 0.18 95 / 0.35);
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +145,35 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
   }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-yellow {
+    background: linear-gradient(135deg, oklch(0.92 0.18 95), oklch(0.78 0.17 80));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bat-grid {
+    background-image:
+      linear-gradient(oklch(0.86 0.18 95 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.86 0.18 95 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .glow-yellow {
+    box-shadow: 0 0 40px -10px oklch(0.86 0.18 95 / 0.5);
+  }
+  @keyframes float-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-float-up { animation: float-up 0.7s ease-out both; }
 }
