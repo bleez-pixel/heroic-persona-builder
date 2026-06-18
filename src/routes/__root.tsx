@@ -127,6 +127,24 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (document.getElementById("botpress-inject")) return;
+
+    const s1 = document.createElement("script");
+    s1.id = "botpress-inject";
+    s1.src = "https://cdn.botpress.cloud/webchat/v3.6/inject.js";
+    s1.async = true;
+
+    const s2 = document.createElement("script");
+    s2.id = "botpress-config";
+    s2.src = "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js";
+    s2.defer = true;
+
+    s1.onload = () => document.body.appendChild(s2);
+    document.body.appendChild(s1);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
