@@ -18,6 +18,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+function openBotpressChat() {
+  const w = window as unknown as {
+    botpress?: { open?: () => void; toggle?: () => void };
+  };
+  if (w.botpress?.open) {
+    w.botpress.open();
+    return;
+  }
+  if (w.botpress?.toggle) {
+    w.botpress.toggle();
+    return;
+  }
+  const fab = document.querySelector<HTMLElement>(
+    ".bpFab, .bpw-floating-button, [class*='Fab']"
+  );
+  if (fab) fab.click();
+  else toast.message("Chat is loading — please try again in a moment.");
+}
+
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
@@ -106,87 +125,6 @@ const PROJECTS = [
     description:
       "HR automation that auto-generates Trello onboarding tasks, sends personalized welcomes, and uses Zapier Paths to alert admins on missing data.",
     stack: ["Zapier", "Google Workspace", "Trello", "Slack"],
-  },
-  {
-    title: "\n",
-    description: "\n",
-    stack: ["LangChain", "Supabase pgvector", "GPT-4o"],
-  },
-  {
-    title: "\n",
-    description: "\n",
-    stack: ["n8n", "Apollo", "GPT-4o", "GoHighLevel"],
-  },
-  {
-    title: "AI Meeting Summarizer & Action Tracker",
-    description:
-      "Auto-ingests call recordings, transcribes via Whisper, extracts decisions and owners, and pushes structured action items into Notion and Slack.",
-    stack: ["Whisper", "n8n", "Notion API", "Slack"],
-  },
-  {
-    title: "AI Resume Screening Pipeline",
-    description: "\n",
-    stack: ["Zapier", "GPT-4o", "Airtable", "Gmail API"],
-  },
-  {
-    title: "E-commerce Inventory Sync Bot",
-    description:
-      "Bidirectional inventory sync between Shopify, a Supabase ledger, and Google Sheets — conflict resolution, low-stock alerts, and audit trail per SKU.",
-    stack: ["n8n", "Shopify API", "Supabase", "Slack"],
-  },
-  {
-    title: "Real-time Price Monitoring Agent",
-    description:
-      "Headless scraper monitoring competitor pricing on a schedule with anti-bot rotation, change detection, and Telegram alerts on threshold breaches.",
-    stack: ["Python", "Selenium", "PostgreSQL", "Telegram Bot API"],
-  },
-  {
-    title: "AI Customer Feedback Classifier",
-    description:
-      "Streams reviews and support tickets through an LLM classifier with sentiment, intent, and urgency tags surfaced on a live dashboard.",
-    stack: ["FastAPI", "LangChain", "Supabase", "Recharts"],
-  },
-  {
-    title: "Voice-to-CRM Logger",
-    description:
-      "Field-rep mobile flow that captures voice notes, transcribes and structures them via LLM, and writes the result straight into GoHighLevel contacts.",
-    stack: ["Vapi", "Whisper", "GoHighLevel", "n8n"],
-  },
-  {
-    title: "Instagram DM Auto-Responder",
-    description:
-      "LLM-backed DM agent that qualifies leads, answers FAQs, books calls via Calendly, and escalates complex threads to a human with full context.",
-    stack: ["Manychat", "n8n", "Azure OpenAI", "Calendly"],
-  },
-  {
-    title: "AI Blog Generation Pipeline",
-    description:
-      "Topic-to-publish pipeline: keyword research, outline, draft, on-page SEO checks, and WordPress publishing — all triggered from a single Airtable row.",
-    stack: ["n8n", "GPT-4o", "WordPress REST", "Airtable"],
-  },
-  {
-    title: "Internal Ops Copilot",
-    description:
-      "Slack-native AI copilot that answers HR, finance, and IT questions from internal docs with role-based access and a feedback loop into the knowledge base.",
-    stack: ["Slack Bolt", "LangChain", "Supabase pgvector", "Python"],
-  },
-  {
-    title: "Telegram Trading Signals Bot",
-    description:
-      "Event-driven bot ingesting market feeds, evaluating strategy rules, and broadcasting formatted signals with risk metadata to subscriber channels.",
-    stack: ["Python", "FastAPI", "Telegram Bot API", "PostgreSQL"],
-  },
-  {
-    title: "Multi-channel Appointment Booking AI",
-    description:
-      "Unified booking agent across WhatsApp, web chat, and voice — checks availability, books, reschedules, and sends reminders without human touch.",
-    stack: ["Vapi", "Botpress", "Google Calendar", "n8n"],
-  },
-  {
-    title: "Invoice OCR & Reconciliation Bot",
-    description:
-      "Drops a PDF invoice in a folder, OCR + LLM extracts line items, matches against POs in the ERP, and posts approved entries with mismatch flags.",
-    stack: ["Python", "GPT-4o Vision", "Supabase", "Zapier"],
   },
 ];
 
@@ -279,11 +217,9 @@ function Hero() {
           </div>
 
           <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            AI & Automation
+            <span className="text-gradient-yellow">AI &amp; Automation</span>
             <br />
-            engineer shipping <span className="text-gradient-yellow">autonomous</span>
-            <br />
-            systems.
+            engineer.
           </h1>
 
           <p className="mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
@@ -306,6 +242,16 @@ function Hero() {
               className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
             >
               <a href="#contact">Contact Me</a>
+            </Button>
+            <Button
+              type="button"
+              size="lg"
+              variant="outline"
+              onClick={openBotpressChat}
+              className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
+            >
+              <Bot className="h-4 w-4" />
+              AI Assistant
             </Button>
           </div>
 
@@ -514,14 +460,14 @@ function Contact() {
               <ContactLink
                 icon={Github}
                 label="GitHub"
-                value="github.com/matiurrehman"
-                href="https://github.com/"
+                value="github.com/Mati-Ur-Rehman-1"
+                href="https://github.com/Mati-Ur-Rehman-1"
               />
               <ContactLink
                 icon={Linkedin}
                 label="LinkedIn"
-                value="linkedin.com/in/matiurrehman"
-                href="https://linkedin.com/"
+                value="linkedin.com/in/mati-ur-rehman-860a921b6"
+                href="https://www.linkedin.com/in/mati-ur-rehman-860a921b6/"
               />
             </div>
           </div>
@@ -621,14 +567,11 @@ function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-sm text-muted-foreground sm:flex-row">
         <div>© {new Date().getFullYear()} Mati Ur Rehman. Built in the dark.</div>
         <div className="flex items-center gap-5">
-          <a href="https://github.com/" className="transition-colors hover:text-primary" aria-label="GitHub">
+          <a href="https://github.com/Mati-Ur-Rehman-1" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary" aria-label="GitHub">
             <Github className="h-4 w-4" />
           </a>
-          <a href="https://linkedin.com/" className="transition-colors hover:text-primary" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/mati-ur-rehman-860a921b6/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary" aria-label="LinkedIn">
             <Linkedin className="h-4 w-4" />
-          </a>
-          <a href="https://udemy.com/" className="transition-colors hover:text-primary">
-            Udemy
           </a>
         </div>
       </div>
