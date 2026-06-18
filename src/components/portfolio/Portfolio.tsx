@@ -108,15 +108,13 @@ const PROJECTS = [
     stack: ["Zapier", "Google Workspace", "Trello", "Slack"],
   },
   {
-    title: "RAG Document Q&A Engine",
-    description:
-      "Retrieval-augmented chatbot over private PDFs and Notion docs with hybrid vector search, citation-grounded answers, and per-user access scoping.",
+    title: "\n",
+    description: "\n",
     stack: ["LangChain", "Supabase pgvector", "GPT-4o"],
   },
   {
-    title: "Autonomous Cold Outreach Agent",
-    description:
-      "End-to-end SDR pipeline that scrapes leads, enriches them, drafts personalized openers via LLM, and routes replies into a CRM for human handoff.",
+    title: "\n",
+    description: "\n",
     stack: ["n8n", "Apollo", "GPT-4o", "GoHighLevel"],
   },
   {
@@ -127,8 +125,7 @@ const PROJECTS = [
   },
   {
     title: "AI Resume Screening Pipeline",
-    description:
-      "Parses inbound CVs from Gmail, scores candidates against role rubrics with an LLM, and writes ranked shortlists to Airtable with explainability notes.",
+    description: "\n",
     stack: ["Zapier", "GPT-4o", "Airtable", "Gmail API"],
   },
   {
