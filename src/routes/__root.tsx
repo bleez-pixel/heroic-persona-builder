@@ -82,10 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Portfolio of Mati Ur Rehman — Backend Developer and AI Automation Engineer building LLM-powered, zero-touch systems." },
       { name: "author", content: "Mati Ur Rehman" },
       { property: "og:title", content: "Mati Ur Rehman — AI & Automation Engineer" },
-      { property: "og:description", content: "Backend Developer & AI Automation Engineer. n8n, Zapier, LangChain, Azure OpenAI." },
+      { property: "og:description", content: "Portfolio of Mati Ur Rehman — Backend Developer and AI Automation Engineer building LLM-powered, zero-touch systems." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Mati Ur Rehman — AI & Automation Engineer" },
+      { name: "twitter:description", content: "Portfolio of Mati Ur Rehman — Backend Developer and AI Automation Engineer building LLM-powered, zero-touch systems." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d1da26e4-a978-494b-9fff-f91c512701ab/id-preview-db43b53e--e1e52edc-65bd-43bd-ac4b-c1701e3abfe6.lovable.app-1781762803212.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d1da26e4-a978-494b-9fff-f91c512701ab/id-preview-db43b53e--e1e52edc-65bd-43bd-ac4b-c1701e3abfe6.lovable.app-1781762803212.png" },
     ],
     links: [
       {
@@ -98,10 +102,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
       },
-    ],
-    scripts: [
-      { src: "https://cdn.botpress.cloud/webchat/v3.6/inject.js" },
-      { src: "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js", defer: true },
     ],
   }),
   shellComponent: RootShell,
