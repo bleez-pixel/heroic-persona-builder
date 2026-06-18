@@ -99,6 +99,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
       },
     ],
+    scripts: [
+      { src: "https://cdn.botpress.cloud/webchat/v3.6/inject.js" },
+      { src: "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js", defer: true },
+    ],
+    styles: [
+      {
+        children: `
+          :root { --bpFabBgColor:#f5c518; --bpFabColor:#0a0a0a; }
+          .bpFab, [class*="bpFab"], .bpw-floating-button, [class*="FloatingButton"] {
+            background-color:#f5c518 !important;
+            color:#0a0a0a !important;
+            box-shadow:0 10px 30px -10px rgba(245,197,24,0.55) !important;
+          }
+          .bpFab svg, [class*="bpFab"] svg { color:#0a0a0a !important; fill:#0a0a0a !important; }
+        `,
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
