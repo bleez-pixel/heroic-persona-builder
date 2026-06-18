@@ -166,7 +166,7 @@ export function Portfolio() {
 
 function Nav() {
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/70 backdrop-blur-xl">
+    <header className="fixed top-0 z-50 w-full border-b border-border/20 bg-background/50 backdrop-blur-2xl transition-all duration-300">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <a href="#top" className="flex items-center gap-2 font-display font-bold tracking-tight">
           <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
@@ -199,12 +199,14 @@ function Hero() {
       id="top"
       className="relative flex min-h-screen items-center overflow-hidden pt-16"
     >
-      <div className="absolute inset-0 bat-grid opacity-40" />
+      <div className="absolute inset-0 bat-grid opacity-30" />
       <div
         className="absolute inset-0"
         style={{ background: "var(--gradient-bat)" }}
       />
-      <div className="absolute -top-32 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      {/* Dynamic Background Orbs */}
+      <div className="absolute -top-32 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px] mix-blend-screen" />
+      <div className="absolute bottom-10 right-1/4 h-[600px] w-[600px] translate-x-1/2 rounded-full bg-primary/10 blur-[150px] mix-blend-screen" />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 py-20">
         <div className="max-w-4xl animate-float-up">
@@ -356,9 +358,9 @@ function Skills() {
             return (
               <div
                 key={g.title}
-                className="group relative overflow-hidden rounded-xl border border-border/60 bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/60 hover:shadow-[var(--shadow-bat)]"
+                className="group relative overflow-hidden rounded-xl border border-border/40 bg-card/30 backdrop-blur-md p-6 transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:bg-card/60 hover:shadow-[0_0_30px_-10px_rgba(245,197,24,0.25)]"
               >
-                <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/10 blur-2xl transition-opacity group-hover:opacity-100 opacity-0" />
+                <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-primary/20 blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-0" />
                 <div className="relative">
                   <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
@@ -393,9 +395,9 @@ function Projects() {
           {PROJECTS.map((p, i) => (
             <article
               key={p.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card p-7 transition-all hover:-translate-y-1 hover:border-primary/60"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-card/30 backdrop-blur-lg p-8 transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:bg-card/50 hover:shadow-[0_0_40px_-15px_rgba(245,197,24,0.25)]"
             >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-primary/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="mb-5 flex items-center justify-between">
                 <span className="font-display text-xs font-semibold text-primary">
                   {String(i + 1).padStart(2, "0")}
@@ -474,31 +476,34 @@ function Contact() {
 
           <form
             onSubmit={handleSubmit}
-            className="relative space-y-5 rounded-2xl border border-border/80 bg-card p-8"
+            className="relative space-y-6 rounded-3xl border border-border/40 bg-card/40 backdrop-blur-xl p-10 shadow-2xl transition-all duration-500 hover:border-primary/30"
           >
-            <Field name="name" label="Name" placeholder="Bruce Wayne" />
-            <Field name="email" label="Email" type="email" placeholder="you@company.com" />
-            <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Message
-              </label>
-              <textarea
-                name="message"
-                required
-                rows={5}
-                placeholder="Tell me about the system you want to automate…"
-                className="w-full resize-none rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary"
-              />
+            <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="relative z-10 space-y-6">
+              <Field name="name" label="Name" placeholder="Bruce Wayne" />
+              <Field name="email" label="Email" type="email" placeholder="you@company.com" />
+              <div>
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder="Tell me about the system you want to automate…"
+                  className="w-full resize-none rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary"
+                />
+              </div>
+              <Button
+                type="submit"
+                size="lg"
+                disabled={sending}
+                className="w-full h-12 font-semibold glow-yellow"
+              >
+                {sending ? "Sending…" : "Send Message"}
+                <Send className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              type="submit"
-              size="lg"
-              disabled={sending}
-              className="w-full h-12 font-semibold glow-yellow"
-            >
-              {sending ? "Sending…" : "Send Message"}
-              <Send className="h-4 w-4" />
-            </Button>
           </form>
         </div>
       </div>
@@ -565,7 +570,7 @@ function Footer() {
   return (
     <footer className="border-t border-border/60 py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-sm text-muted-foreground sm:flex-row">
-        <div>© {new Date().getFullYear()} Mati Ur Rehman. Built in the dark.</div>
+        <div>© {new Date().getFullYear()} Mati Ur Rehman.</div>
         <div className="flex items-center gap-5">
           <a href="https://github.com/Mati-Ur-Rehman-1" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary" aria-label="GitHub">
             <Github className="h-4 w-4" />

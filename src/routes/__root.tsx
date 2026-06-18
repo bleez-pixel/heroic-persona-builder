@@ -103,16 +103,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap",
       },
     ],
-    scripts: [
-      {
-        src: "https://cdn.botpress.cloud/webchat/v3.6/inject.js",
-        async: true,
-      },
-      {
-        src: "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js",
-        defer: true,
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -136,6 +126,25 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    // Only inject if not already present
+    if (document.getElementById("botpress-inject")) return;
+
+    const injectScript = document.createElement("script");
+    injectScript.id = "botpress-inject";
+    injectScript.src = "https://cdn.botpress.cloud/webchat/v3.6/inject.js";
+    injectScript.async = true;
+
+    injectScript.onload = () => {
+      const configScript = document.createElement("script");
+      configScript.src = "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js";
+      configScript.defer = true;
+      document.body.appendChild(configScript);
+    };
+
+    document.body.appendChild(injectScript);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
