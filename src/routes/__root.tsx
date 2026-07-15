@@ -126,19 +126,38 @@ function RootShell({ children }: { children: ReactNode }) {
 
 // The Botpress free plan doesn't allow removing the "Powered by Botpress"
 // branding from the dashboard (that's a paid-plan feature). Since the widget
-// renders as plain DOM (not an iframe), we can safely hide just the branding
-// link by watching for it and hiding its wrapper — this only ever touches
-// <a> tags that point to botpress.com/botpress.cloud, so it never affects
-// the word "Botpress" used elsewhere on the page (e.g. the Skills section).
+// renders as plain DOM (not an iframe), we can hide just the branding row.
+// It isn't a link to botpress.com, just a small icon + "by Botpress" text,
+// so we match on that exact short text instead. We only ever hide small
+// leaf elements whose own text is "by Botpress" (plus their immediate small
+// wrapper row), so this never touches the word "Botpress" used elsewhere on
+// the page (e.g. the Skills or Projects sections, where it's part of longer
+// sentences/tags).
 function hideBotpressBranding() {
-  document
-    .querySelectorAll<HTMLAnchorElement>(
-      'a[href*="botpress.com"], a[href*="botpress.cloud"]'
-    )
-    .forEach((link) => {
-      const wrapper = (link.closest("div") as HTMLElement | null) ?? link;
-      wrapper.style.display = "none";
-    });
+  const chatRoot = document.querySelector(
+    '[class*="bpWebchat" i], [class*="bpContainer" i]'
+  );
+  const scope = chatRoot ?? document.body;
+
+  scope.querySelectorAll<HTMLElement>("*").forEach((el) => {
+    if (el.children.length > 1) return;
+    const text = el.textContent?.trim() ?? "";
+    if (!text || text.length > 20) return;
+    if (!/^by\s*botpress$/i.test(text)) return;
+
+    // Climb up while the parent's total visible text is still just this
+    // short branding row (icon + "by Botpress"), so we hide the whole row
+    // without ever reaching a container big enough to hold real content.
+    let target: HTMLElement = el;
+    while (
+      target.parentElement &&
+      target.parentElement !== scope &&
+      (target.parentElement.textContent?.trim().length ?? 0) <= 20
+    ) {
+      target = target.parentElement;
+    }
+    target.style.display = "none";
+  });
 }
 
 function RootComponent() {
