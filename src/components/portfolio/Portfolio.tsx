@@ -303,19 +303,17 @@ function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto hidden w-full max-w-sm animate-float-up lg:block">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/30 via-primary/5 to-transparent blur-2xl" />
-            <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-b from-primary/60 via-primary/10 to-transparent opacity-60" />
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-primary/30 bg-card shadow-[0_0_60px_-15px_rgba(245,197,24,0.35)]">
+          <div className="relative mx-auto hidden w-full max-w-xs animate-float-up lg:block">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-primary/10 to-transparent blur-3xl" />
+            <div className="relative mx-auto aspect-square w-full max-w-[320px] overflow-hidden rounded-full border-4 border-primary/40 shadow-[0_0_70px_-10px_rgba(245,197,24,0.45)]">
               <img
                 src="/mati-ur-rehman.jpg"
                 alt="Mati Ur Rehman — AI & Automation Engineer"
-                className="aspect-[4/5] w-full object-cover"
+                className="h-full w-full object-cover"
                 loading="eager"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             </div>
-            <div className="absolute -bottom-5 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl border border-border/60 bg-card/90 px-5 py-3 text-center shadow-xl backdrop-blur-xl">
+            <div className="relative mx-auto -mt-6 w-fit rounded-2xl border border-border/60 bg-card/90 px-5 py-3 text-center shadow-xl backdrop-blur-xl">
               <div className="font-display text-sm font-semibold">Mati Ur Rehman</div>
               <div className="text-xs text-muted-foreground">AI & Automation Engineer</div>
             </div>
