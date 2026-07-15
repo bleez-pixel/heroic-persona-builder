@@ -16,6 +16,13 @@ import {
   Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { toast } from "sonner";
 
 function openBotpressChat() {
@@ -83,48 +90,79 @@ const PROJECTS = [
     description:
       "Multi-tenant conversational chatbot powered by Supabase and Botpress Cloud — context-aware answers, persistent memory, and per-client knowledge isolation.",
     stack: ["Supabase", "Botpress Cloud", "Multi-tenant"],
+    bullets: [
+      "Engineered a multi-tenant knowledge base synchronization system powered by Supabase and Botpress Cloud to streamline data retrieval and management.",
+      "Isolated each client's knowledge base while sharing a single underlying architecture, keeping per-client data private and independently updatable.",
+    ],
   },
   {
     title: "Autonomous Voice AI Agents",
     description:
       "Deployed autonomous AI voice calling agents that independently handle operational inbound and outbound calls end-to-end.",
     stack: ["Vapi", "API Integrations", "LLM"],
+    bullets: [
+      "Deployed autonomous AI voice calling agents designed to independently handle operational inbound and outbound calls.",
+      "Integrated Vapi with backend APIs so the agent could act on real business data during live calls, without human handoff.",
+    ],
   },
   {
     title: "AI-Powered WhatsApp E-Commerce Bot",
     description:
       "Autonomous conversational agent with persistent session memory — live inventory lookups and automated sale logging, zero human in the loop.",
     stack: ["n8n", "WhatsApp Cloud API", "Azure OpenAI"],
+    bullets: [
+      "Developed an autonomous conversational AI agent with persistent session memory to handle customer FAQs at scale.",
+      "Integrated live inventory database lookups and automated sale logging, eliminating human intervention from the order process.",
+    ],
   },
   {
     title: "Unified CRM Routing & Lead Scoring",
     description:
       "Lead management engine running custom Python to score by budget & urgency, routing prospects into targeted GHL pipelines with automated ticketing.",
     stack: ["GoHighLevel", "Zapier", "Python", "Airtable", "Twilio"],
+    bullets: [
+      "Architected a lead management system executing custom Python code to score leads by budget and urgency, routing prospects into targeted GHL pipelines.",
+      "Integrated automated customer support ticketing and task assignment via Zapier and n8n.",
+    ],
   },
   {
     title: "Newsletter-to-Video Pipeline",
     description:
       "Zero-touch pipeline that detects ready drafts, rewrites them into scripts via GPT-4o, and triggers HeyGen avatar video renders with async polling.",
     stack: ["n8n", "GPT-4o", "HeyGen API", "Google Sheets"],
+    bullets: [
+      "Architected a zero-touch pipeline that auto-detects 'ready' newsletter drafts, rewrites them into video scripts via GPT-4o, and triggers HeyGen to render AI avatar videos.",
+      "Implemented asynchronous polling for video rendering status and auto-synced final MP4 Google Drive links back to the source database.",
+    ],
   },
   {
     title: "AI Social Media Content Engine",
     description:
       "High-speed content repurposer parsing long-form docs into platform-specific posts via LLaMA 3 on Groq, with strict JSON & character-limit validation.",
     stack: ["n8n", "LangChain", "Groq", "Google Docs"],
+    bullets: [
+      "Built a high-speed content repurposing engine that parses long-form documents and generates platform-specific posts using LLaMA 3 via Groq.",
+      "Implemented strict JSON validation and character-limit logic (e.g., 280-char limits) and automated content calendar output to Google Sheets.",
+    ],
   },
   {
     title: "Full-Cycle Support Ticketing System",
     description:
       "Automated support desk — form submissions generate Notion tickets, send branded Gmail confirmations, and route high-priority issues via Slack DMs.",
     stack: ["Zapier", "Tally.so", "Notion", "Slack"],
+    bullets: [
+      "Designed a fully automated support desk: form submissions auto-generate Notion tickets, trigger branded Gmail confirmations, and route high-priority issues directly to senior staff via Slack DMs.",
+    ],
   },
   {
     title: "Intern Onboarding & Task Allocation",
     description:
       "HR automation that auto-generates Trello onboarding tasks, sends personalized welcomes, and uses Zapier Paths to alert admins on missing data.",
     stack: ["Zapier", "Google Workspace", "Trello", "Slack"],
+    bullets: [
+      "Built an HR automation workflow that auto-generates Trello onboarding tasks and sends personalized welcome emails.",
+      "Used advanced error handling (Zapier Paths) to alert admins whenever required onboarding data was missing.",
+    ],
   },
 ];
 
@@ -387,6 +425,9 @@ function Skills() {
 }
 
 function Projects() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const active = activeIndex !== null ? PROJECTS[activeIndex] : null;
+
   return (
     <section id="projects" className="relative border-t border-border/60 py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -395,7 +436,16 @@ function Projects() {
           {PROJECTS.map((p, i) => (
             <article
               key={p.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-card/30 backdrop-blur-lg p-8 transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:bg-card/50 hover:shadow-[0_0_40px_-15px_rgba(245,197,24,0.25)]"
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveIndex(i)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveIndex(i);
+                }
+              }}
+              className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border/40 bg-card/30 backdrop-blur-lg p-8 transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:bg-card/50 hover:shadow-[0_0_40px_-15px_rgba(245,197,24,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
             >
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-primary/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="mb-5 flex items-center justify-between">
@@ -424,6 +474,44 @@ function Projects() {
           ))}
         </div>
       </div>
+
+      <Dialog open={activeIndex !== null} onOpenChange={(open) => !open && setActiveIndex(null)}>
+        <DialogContent className="max-w-xl border-border/60 bg-card/95 backdrop-blur-xl">
+          {active && (
+            <>
+              <DialogHeader>
+                <span className="font-display text-xs font-semibold text-primary">
+                  {activeIndex !== null ? String(activeIndex + 1).padStart(2, "0") : ""}
+                </span>
+                <DialogTitle className="font-display text-2xl">{active.title}</DialogTitle>
+                <DialogDescription className="text-base text-muted-foreground">
+                  {active.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <ul className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+                {active.bullets.map((b, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {active.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
