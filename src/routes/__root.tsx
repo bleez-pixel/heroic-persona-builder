@@ -127,37 +127,24 @@ function RootShell({ children }: { children: ReactNode }) {
 // The Botpress free plan doesn't allow removing the "Powered by Botpress"
 // branding from the dashboard (that's a paid-plan feature). Since the widget
 // renders as plain DOM (not an iframe), we can hide just the branding row.
-// It isn't a link to botpress.com, just a small icon + "by Botpress" text,
-// so we match on that exact short text instead. We only ever hide small
-// leaf elements whose own text is "by Botpress" (plus their immediate small
-// wrapper row), so this never touches the word "Botpress" used elsewhere on
-// the page (e.g. the Skills or Projects sections, where it's part of longer
-// sentences/tags).
+// The text "by Botpress" can be split across a few nested spans (with an
+// icon), so instead of requiring one leaf node to hold the exact string, we
+// look at each element's full aggregated text (including descendants) and
+// pick the smallest one whose text is short and matches "by Botpress". This
+// never matches longer sentences elsewhere on the page (e.g. the Skills or
+// Projects sections), since those mention "Botpress" without "by" directly
+// before it, or as part of a much longer sentence/tag.
 function hideBotpressBranding() {
-  const chatRoot = document.querySelector(
-    '[class*="bpWebchat" i], [class*="bpContainer" i]'
-  );
-  const scope = chatRoot ?? document.body;
+  const candidates = Array.from(document.querySelectorAll<HTMLElement>("body *"))
+    .filter((el) => {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      return text.length > 0 && text.length <= 30 && /by\s*botpress/i.test(text);
+    })
+    .sort((a, b) => a.querySelectorAll("*").length - b.querySelectorAll("*").length);
 
-  scope.querySelectorAll<HTMLElement>("*").forEach((el) => {
-    if (el.children.length > 1) return;
-    const text = el.textContent?.trim() ?? "";
-    if (!text || text.length > 20) return;
-    if (!/^by\s*botpress$/i.test(text)) return;
-
-    // Climb up while the parent's total visible text is still just this
-    // short branding row (icon + "by Botpress"), so we hide the whole row
-    // without ever reaching a container big enough to hold real content.
-    let target: HTMLElement = el;
-    while (
-      target.parentElement &&
-      target.parentElement !== scope &&
-      (target.parentElement.textContent?.trim().length ?? 0) <= 20
-    ) {
-      target = target.parentElement;
-    }
-    target.style.display = "none";
-  });
+  if (candidates.length > 0) {
+    candidates[0].style.display = "none";
+  }
 }
 
 function RootComponent() {
