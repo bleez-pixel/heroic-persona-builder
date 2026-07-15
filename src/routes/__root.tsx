@@ -124,6 +124,23 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+// The Botpress free plan doesn't allow removing the "Powered by Botpress"
+// branding from the dashboard (that's a paid-plan feature). Since the widget
+// renders as plain DOM (not an iframe), we can safely hide just the branding
+// link by watching for it and hiding its wrapper — this only ever touches
+// <a> tags that point to botpress.com/botpress.cloud, so it never affects
+// the word "Botpress" used elsewhere on the page (e.g. the Skills section).
+function hideBotpressBranding() {
+  document
+    .querySelectorAll<HTMLAnchorElement>(
+      'a[href*="botpress.com"], a[href*="botpress.cloud"]'
+    )
+    .forEach((link) => {
+      const wrapper = (link.closest("div") as HTMLElement | null) ?? link;
+      wrapper.style.display = "none";
+    });
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -140,6 +157,13 @@ function RootComponent() {
       const configScript = document.createElement("script");
       configScript.src = "https://files.bpcontent.cloud/2026/05/20/16/20260520160613-8M7SSMAX.js";
       configScript.defer = true;
+      configScript.onload = () => {
+        // Hide the branding as soon as the widget mounts, and keep watching
+        // since the widget re-renders its DOM when opened/closed.
+        hideBotpressBranding();
+        const observer = new MutationObserver(hideBotpressBranding);
+        observer.observe(document.body, { childList: true, subtree: true });
+      };
       document.body.appendChild(configScript);
     };
 
