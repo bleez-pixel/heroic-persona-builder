@@ -247,58 +247,78 @@ function Hero() {
       <div className="absolute bottom-10 right-1/4 h-[600px] w-[600px] translate-x-1/2 rounded-full bg-primary/10 blur-[150px] mix-blend-screen" />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 py-20">
-        <div className="max-w-4xl animate-float-up">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-            </span>
-            Available for AI automation projects
+        <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="max-w-2xl animate-float-up">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              Available for AI automation projects
+            </div>
+
+            <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+              <span className="text-gradient-yellow">AI &amp; Automation</span>
+              <br />
+              engineer.
+            </h1>
+
+            <p className="mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+              I'm <span className="text-foreground font-medium">Mati Ur Rehman</span> — an AI &
+              Automation Engineer designing zero-touch pipelines with n8n, LangChain, Azure OpenAI
+              and Supabase that ship to production.
+            </p>
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button asChild size="lg" className="group h-12 px-7 font-semibold glow-yellow">
+                <a href="#projects">
+                  View My Work
+                  <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
+              >
+                <a href="#contact">Contact Me</a>
+              </Button>
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                onClick={openBotpressChat}
+                className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
+              >
+                <Bot className="h-4 w-4" />
+                AI Assistant
+              </Button>
+            </div>
+
+            <div className="mt-16 grid max-w-2xl grid-cols-3 gap-8 border-t border-border/60 pt-8">
+              <Stat value="20+" label="Production AI systems" />
+              <Stat value="AZ-900" label="Microsoft Certified" />
+              <Stat value="Zero-touch" label="Automation pipelines" />
+            </div>
           </div>
 
-          <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            <span className="text-gradient-yellow">AI &amp; Automation</span>
-            <br />
-            engineer.
-          </h1>
-
-          <p className="mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            I'm <span className="text-foreground font-medium">Mati Ur Rehman</span> — an AI &
-            Automation Engineer designing zero-touch pipelines with n8n, LangChain, Azure OpenAI
-            and Supabase that ship to production.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button asChild size="lg" className="group h-12 px-7 font-semibold glow-yellow">
-              <a href="#projects">
-                View My Work
-                <ArrowRight className="transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
-            >
-              <a href="#contact">Contact Me</a>
-            </Button>
-            <Button
-              type="button"
-              size="lg"
-              variant="outline"
-              onClick={openBotpressChat}
-              className="h-12 border-primary/50 bg-transparent px-7 font-semibold text-primary hover:bg-primary/10 hover:text-primary"
-            >
-              <Bot className="h-4 w-4" />
-              AI Assistant
-            </Button>
-          </div>
-
-          <div className="mt-16 grid max-w-2xl grid-cols-3 gap-8 border-t border-border/60 pt-8">
-            <Stat value="20+" label="Production AI systems" />
-            <Stat value="AZ-900" label="Microsoft Certified" />
-            <Stat value="Zero-touch" label="Automation pipelines" />
+          <div className="relative mx-auto hidden w-full max-w-sm animate-float-up lg:block">
+            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/30 via-primary/5 to-transparent blur-2xl" />
+            <div className="absolute -inset-px rounded-[1.75rem] bg-gradient-to-b from-primary/60 via-primary/10 to-transparent opacity-60" />
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-primary/30 bg-card shadow-[0_0_60px_-15px_rgba(245,197,24,0.35)]">
+              <img
+                src="/mati-ur-rehman.jpg"
+                alt="Mati Ur Rehman — AI & Automation Engineer"
+                className="aspect-[4/5] w-full object-cover"
+                loading="eager"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+            </div>
+            <div className="absolute -bottom-5 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl border border-border/60 bg-card/90 px-5 py-3 text-center shadow-xl backdrop-blur-xl">
+              <div className="font-display text-sm font-semibold">Mati Ur Rehman</div>
+              <div className="text-xs text-muted-foreground">AI & Automation Engineer</div>
+            </div>
           </div>
         </div>
       </div>
